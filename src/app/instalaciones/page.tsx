@@ -1,18 +1,15 @@
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import facilities from './data.json'
+import useFacilitiesController from './controller'
 
-const people = [
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  // More people...
-]
+export default async function FacilitiesPage() {
+  const { getFacilities } = useFacilitiesController()
 
-export default function FacilitiesPage() {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">Aeropuertos</h1>
+          <h1 className="text-base font-semibold leading-6 text-gray-900">Instalaciones</h1>
           <p className="mt-2 text-sm text-gray-700">
             Lista de las instalaciones agregadass a la base de datos.
           </p>
@@ -87,21 +84,21 @@ export default function FacilitiesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {facilities.map((facility) => (
-                  <tr key={facility.id}>
+                {(await getFacilities()).map((facility) => (
+                  <tr key={facility.Id}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                      {facility.id}
+                      {facility.Id}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{facility.id_aero}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{facility.nombre}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{facility.tipo}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{facility.ubicacion}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{facility.IdAero}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{facility.Nombre}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{facility.Tipo}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{facility.Ubicacion}</td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm sm:pr-0">
                       <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                        Editar <span className="sr-only">, {facility.id}</span>
+                        Editar <span className="sr-only">, {facility.Id}</span>
                       </a>
                       <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                        Eliminar <span className="sr-only">, {facility.id}</span>
+                        Eliminar <span className="sr-only">, {facility.Id}</span>
                       </a>
                     </td>
                   </tr>

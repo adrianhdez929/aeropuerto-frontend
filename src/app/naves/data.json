@@ -1,0 +1,30 @@
+[
+    {
+        "matricula": 1125,
+        "cap_carga": 100,
+        "cant_tripulantes": 10,
+        "clasificacion": "A2",
+        "total_plazas": 70
+    },
+    {
+        "matricula": 12750,
+        "cap_carga": 142,
+        "cant_tripulantes": 15,
+        "clasificacion": "B1",
+        "total_plazas": 90
+    },
+    {
+        "matricula": 77539,
+        "cap_carga": 305,
+        "cant_tripulantes": 22,
+        "clasificacion": "C3",
+        "total_plazas": 170
+    },
+    {
+        "matricula": 1245,
+        "cap_carga": 70,
+        "cant_tripulantes": 6,
+        "clasificacion": "A1",
+        "total_plazas": 40
+    }
+]

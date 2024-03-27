@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nombre": "Juan Pedro de las Mercedes",
+        "nacionalidad": "Cubana"
+    },
+    {
+        "id": 2,
+        "nombre": "Alicia van der Paul",
+        "nacionalidad": "Holandesa"
+    },
+    {
+        "id": 3,
+        "nombre": "Pablo Chocahuanca",
+        "nacionalidad": "Peruana"
+    },
+    {
+        "id": 4,
+        "nombre": "Kelly Gordon",
+        "nacionalidad": "Estadounidense"
+    },
+    {
+        "id": 5,
+        "nombre": "Jorge Fernandez",
+        "nacionalidad": "Española"
+    },
+    {
+        "id": 6,
+        "nombre": "Lucy Poisson",
+        "nacionalidad": "Francesa"
+    }
+]

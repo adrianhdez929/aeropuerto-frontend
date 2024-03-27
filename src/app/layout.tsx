@@ -1,7 +1,7 @@
 'use client'
 
 import './globals.css'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
@@ -45,8 +45,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function RootLayout({children}) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+export default async function RootLayout({children}) {
+  const sidebarOpen = true
+  const setSidebarOpen = () => {}
+  // const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <>

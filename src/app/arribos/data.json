@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "nombre": "Aeropuerto Internacional Jose Marti",
+        "direccion": "Boyeros, Habana",
+        "pos_geo": "124.33, -156.23"
+    },
+    {
+        "id": 2,
+        "nombre": "Aeropuerto Internacional Juan Gualberto Gomez",
+        "direccion": "Varadero, Matanzas",
+        "pos_geo": "127.34, -126.17"
+    },
+    {
+        "id": 3,
+        "nombre": "Aeropuerto Internacional Jardines del Rey",
+        "direccion": "Cayo Coco, Ciego de Avila",
+        "pos_geo": "14.33, 56.23"
+    },
+    {
+        "id": 4,
+        "nombre": "Aeropuerto Internacional Frank Pais",
+        "direccion": "Holguin, Holguin",
+        "pos_geo": "-24.53, 116.8"
+    },
+    {
+        "id": 5,
+        "nombre": "Aeropuerto de Florida",
+        "direccion": "Florida, Camaguey",
+        "pos_geo": "96.3, -35.537"
+    },
+    {
+        "id": 6,
+        "nombre": "Aeropuerto Hermanos Ameijeiras",
+        "direccion": "Las Tunas, Las Tunas",
+        "pos_geo": "224.33, -356.23"
+    },
+    {
+        "id": 7,
+        "nombre": "Aeropuerto de las Brujas",
+        "direccion": "Cayo Santa Maria, Villa Clara",
+        "pos_geo": "255.6, 92.45"
+    }
+]
