@@ -1,16 +1,18 @@
 export interface IAirport {
-    Id: number
+    Id: string
     Nombre: string
     Direccion: string
     PosGeo: string
 }
 
 export interface IFacility {
-    Id: number
-    IdAero: number
+    Id: string
+    IdAero: string
+    NombreAero: string
     Nombre: string
     Tipo: string
     Ubicacion: string
+    Descripcion: string | null
 }
 
 export interface IPlane {

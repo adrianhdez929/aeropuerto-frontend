@@ -1,8 +1,6 @@
 import {IAirport} from '@/types/entities'
 import {API_URL} from '@/types/constants'
 
-import airportsData from './data.json'
-
 const useAirportController = () => {
     const url = `${API_URL}Airport`
 
