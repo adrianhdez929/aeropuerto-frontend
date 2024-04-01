@@ -1,9 +1,9 @@
-import {IFacility} from '@/types/entities'
+import {IFacility, IFacilityType} from '@/types/entities'
 import { API_URL } from '@/types/constants'
-import facilitiesData from './data.json'
 
 const useFacilitiesController = () => {
     const url = `${API_URL}Installation`
+    const typeUrl = `${API_URL}InstallationType`
 
     async function getFacilities(): Promise<IFacility[]> {
         'use server'
@@ -20,13 +20,16 @@ const useFacilitiesController = () => {
             Nombre: result.name,
             Descripcion: result.description,
             Tipo: result.type,
-            Ubicacion: result.location
+            Ubicacion: result.location,
+            IdTipoInstalacion: result.idInstallationType
         }))
     }
 
     async function getFacility(id: string): Promise<IFacility> {
         'use server'
-        const response = await fetch(`${url}/${id}`)
+        const response = await fetch(`${url}/${id}`, {
+            cache: 'no-cache'
+        })
 
         const result = await response.json()
 
@@ -37,8 +40,45 @@ const useFacilitiesController = () => {
             NombreAero: result.nameAirport,
             Nombre: result.name,
             Descripcion: result.description,
-            Ubicacion: result.location
+            Ubicacion: result.location,
+            Servicios: result.services.map((serv: any) => ({
+                Codigo: serv.code,
+                Descripcion: serv.description,
+                Precio: serv.price,
+                NombreTipo: serv.type
+            })),
+            IdTipoInstalacion: result.idInstallationType
         }
+    }
+
+    async function getTypes(): Promise<IFacilityType[]> {
+        'use server'
+        const response = await fetch(`${typeUrl}/all`, {
+            cache: 'no-cache'
+        })
+
+        const results = await response.json()
+
+        return results.map((result: any) => ({
+            Id: result.id,
+            Nombre: result.type
+        }))
+    }
+
+    async function createType(formData: FormData): Promise<void> {
+        'use server'
+
+        const body = JSON.stringify({
+            'Type': formData.get('name')
+        })
+
+        const response = await fetch(`${typeUrl}/`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: body 
+        })
     }
 
     async function createFacility(formData: FormData): Promise<void> {
@@ -49,7 +89,8 @@ const useFacilitiesController = () => {
             'Name': formData.get('name'),
             'Type': formData.get('type'),
             'Description': formData.get('description'),
-            'Location': formData.get('location')
+            'Location': formData.get('location'),
+            'IdInstallationType': formData.get('type')
         })
 
         const response = await fetch(`${url}/`, {
@@ -97,6 +138,8 @@ const useFacilitiesController = () => {
     return {
         getFacilities,
         getFacility,
+        getTypes,
+        createType,
         createFacility,
         updateFacility,
         deleteFacility

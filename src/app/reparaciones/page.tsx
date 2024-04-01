@@ -1,41 +1,32 @@
+'use server'
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import usePlanesController from './controller'
-import useAppController from '../controller'
-import { IPlane } from '@/types/entities'
 
-export default async function PlanesPage() {
-  const { getPlanes } = usePlanesController()
-  const {getCurrentUser} = useAppController()
+import useRepairController from './controller'
 
-  const user = await getCurrentUser()
-  const planes = await getPlanes()
+export default async function RepairsPage() {
+  const {getRepairs} = useRepairController()
 
-  let planesFiltered
-  if (user.Tipo == 'Cliente') {
-    planesFiltered = planes.filter((plane: IPlane) => plane.Propietario === user.Nombre)
-  } else {
-    planesFiltered = planes  
-  }
+  const repairs = await getRepairs()
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">Naves</h1>
+          <h1 className="text-base font-semibold leading-6 text-gray-900">Reparaciones</h1>
           <p className="mt-2 text-sm text-gray-700">
-            Lista de las naves agregadas a la base de datos.
+            Lista de las reparaciones agregadas a la base de datos.
           </p>
         </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+        {/* <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <a
-            href='/naves/new'
+            href='/reparaciones/new'
             type="button"
             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Agregar nave
+            Agregar Reparacion
           </a>
-        </div>
+        </div> */}
       </div>
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -43,17 +34,9 @@ export default async function PlanesPage() {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                    <a href="#" className="group inline-flex">
-                      Matricula
-                      <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
-                        <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
-                      </span>
-                    </a>
-                  </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     <a href="#" className="group inline-flex">
-                      Capacidad de Carga
+                      Nave
                       <span className="ml-2 flex-none rounded bg-gray-100 text-gray-900 group-hover:bg-gray-200">
                         <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
                       </span>
@@ -61,7 +44,7 @@ export default async function PlanesPage() {
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     <a href="#" className="group inline-flex">
-                      Cantidad de Tripulantes
+                      Servicio
                       <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                         <ChevronDownIcon
                           className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
@@ -72,7 +55,7 @@ export default async function PlanesPage() {
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     <a href="#" className="group inline-flex">
-                      Clasificacion
+                      Comentario
                       <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                         <ChevronDownIcon
                           className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
@@ -83,7 +66,7 @@ export default async function PlanesPage() {
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     <a href="#" className="group inline-flex">
-                      Total de Plazas
+                      Valoracion
                       <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                         <ChevronDownIcon
                           className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
@@ -94,7 +77,29 @@ export default async function PlanesPage() {
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     <a href="#" className="group inline-flex">
-                      Propietario
+                      Fecha Estimada
+                      <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                        <ChevronDownIcon
+                          className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </a>
+                  </th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    <a href="#" className="group inline-flex">
+                      Fecha Inicio
+                      <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                        <ChevronDownIcon
+                          className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </a>
+                  </th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    <a href="#" className="group inline-flex">
+                      Fecha Final
                       <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                         <ChevronDownIcon
                           className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
@@ -109,24 +114,25 @@ export default async function PlanesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {planesFiltered.map((plane) => (
-                  <tr key={plane.Id}>
-                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                      <a href={`/naves/${plane.Id}`}>
-                        {plane.NoMatricula}
-                      </a>
+                {repairs.map((repair) => (
+                  <tr key={repair.Id}>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <a href={`/reparaciones/${repair.Id}`}>
+                            {repair.NaveMatricula}
+                        </a>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{plane.CapCarga}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{plane.CantTripulantes}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{plane.Clasificacion}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{plane.TotalPlazas}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{plane.Propietario}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{repair.ServicioCodigo}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{repair.Comentario}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{repair.Valoracion}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{repair.FechaEstimada.toLocaleString()}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{repair.FechaInicio.toLocaleString()}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{repair.FechaFinal.toLocaleString()}</td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm sm:pr-0">
-                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                        Editar <span className="sr-only">, {plane.NoMatricula}</span>
+                      <a href={`/reparaciones/${repair.Id}/edit`} className="text-indigo-600 hover:text-indigo-900">
+                        Editar <span className="sr-only">, {repair.Id}</span>
                       </a>
-                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                        Eliminar <span className="sr-only">, {plane.NoMatricula}</span>
+                      <a href={`/reparaciones/${repair.Id}/delete`} className="text-indigo-600 hover:text-indigo-900">
+                        Eliminar <span className="sr-only">, {repair.Id}</span>
                       </a>
                     </td>
                   </tr>

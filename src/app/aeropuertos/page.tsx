@@ -2,7 +2,6 @@
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-import CreateAirportComponent from './_components/CreateAirportComponent'
 import useAirportController from './controller'
 
 export default async function AirportsPage() {

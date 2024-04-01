@@ -1,54 +1,72 @@
 import {IPlane} from '@/types/entities'
 import { API_URL } from '@/types/constants'
-import planesData from './data.json'
 
 const usePlanesController = () => {
-    const url = `${API_URL}Ship/`
+    const url = `${API_URL}Ship`
 
     async function getPlanes(): Promise<IPlane[]> {
         'use server'
-        const response = await fetch(`${url}`)
-        // return planesData.map((plane): IPlane => (
-        //     {
-        //         NoMatricula: plane.matricula,
-        //         CapCarga: plane.cap_carga,
-        //         CantTripulantes: plane.cant_tripulantes,
-        //         Clasificacion: plane.clasificacion,
-        //         TotalPlazas: plane.total_plazas
-        //     }
-        // ))
+        const response = await fetch(`${url}/all`, {
+            cache: 'no-cache'
+        })
+
         const results = await response.json()
-        console.log(results)
 
         return results.map((result: any) => ({
-            NoMatricula: result.matricula,
-            CapCarga: result.cap_carga,
-            CantTripulantes: result.cant_tripulantes,
-            Clasificacion: result.clasificacion,
-            TotalPlazas: result.total_plazas
+            Id: result.id,
+            NoMatricula: result.tuition,
+            CapCarga: result.capacity,
+            CantTripulantes: result.tripulationAmmount,
+            Clasificacion: result.clasification,
+            TotalPlazas: result.passengersAmmount,
+            Propietario: result.propietaryName
         }))
     }
 
-    async function createPlane(): Promise<void> {
+    async function getPlane(id: string): Promise<IPlane> {
         'use server'
+        const response = await fetch(`${url}/${id}`, {
+            cache: 'no-cache'
+        })
+
+        const result = await response.json()
+
+        return {
+            Id: id,
+            NoMatricula: result.tuition,
+            CapCarga: result.capacity,
+            CantTripulantes: result.tripulationAmmount,
+            Clasificacion: result.clasification,
+            TotalPlazas: result.passengersAmmount,
+            Propietario: result.propietaryName
+        }
+    }
+
+    async function createPlane(formData: FormData): Promise<void> {
+        'use server'
+        const body = JSON.stringify({
+            'Tuition': formData.get('tuition'),
+            'Clasification': formData.get('classif'),
+            'PassengersAmmount': formData.get('passamount'),
+            'TripulationAmmount': formData.get('tripamount'),
+            'Capacity': formData.get('capacity'),
+            'PropietaryId': formData.get('idprop')
+        })
+
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({
-                'Tuition': 'test tuition',
-                'Clasification': 'A5',
-                'PassengersAmmount': 155,
-                'TripulationAmmount': 10,
-                'Capacity': 1000,
-                'PropietaryId': 1
-            })
+            body: body
         })
+
+        console.log(await response.json())
     }
 
     return {
         getPlanes,
+        getPlane,
         createPlane
     }
 
